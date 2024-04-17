@@ -51,7 +51,7 @@ export default function MainNotes() {
     }
   },[])
   return (
-    <div className='w-[100%]'>
+    <div className='w-[100%] h-[86vh]'>
       <div layout className='flex px-4 py-3' >
         <div className='todo-wrapper w-1/2 flex flex-col justify-between'>
           <div className="input-field rounded-xl w-full">
@@ -59,10 +59,10 @@ export default function MainNotes() {
             onChange={(e) => setTitle(e.target.value)} 
             placeholder='Title'
             defaultValue={"title"}
-            className='shadow-lg title bg-slate-100 p-2 w-full focus:outline-none rounded-t-lg text-slate-700 font-semibold'
+            className='title bg-slate-100 p-2 w-full focus:outline-none rounded-t-lg text-slate-700 font-semibold'
             tabIndex='1'
             />
-            <div className='h-[1px] bg-slate-100'></div>
+            <div className='h-[1px] bg-slate-300'></div>
             <div className=''></div>
             <textarea type="text" value={newDesc} 
             onChange={(e) => setDesc(e.target.value)}
@@ -71,10 +71,10 @@ export default function MainNotes() {
             tabIndex='2'  />     
           </div>
 
-          <div className="button-field flex items-center justify-end ">
-            <p className=''>Add to list</p>
+          <div className=" mt-2 button-field flex items-center justify-end ">
+            <p className='text-slate-400 text-sm mr-2'>Add to list</p>
             <button 
-            className='btn'
+            className='btn text-green-400'
             onClick={handleAddItem}><Check className='btn'/></button>
           </div>
         </div>
@@ -86,12 +86,12 @@ export default function MainNotes() {
           {allTodos.length===0 ? "time to add some notes !!" : ""}
           {allTodos.map((item, index) => {
             return (
-              <div className=" flex justify-between shadow-lg todo-list-item bg-slate-300 rounded-2xl m-3 p-4" key={index} >
+              <div className=" flex justify-between shadow-lg todo-list-item bg-slate-300 rounded-2xl m-1 p-3" key={index} >
                 <div className="content">
                   <h3 className='text-slate-800 font-semibold text-sm'>{item.title}</h3>
                   <p  className='text-slate-600 text-xs'>{item.desc}</p>
                 </div>
-                <button whileHover={{scale:"1.1"}} transition={{duration:0.7,ease:[0.5,0,0.24,1]}} className='delete-btn' onClick={() => deleteItem()}><Trash2/></button>
+                <button className='delete-btn text-red-400' onClick={() => deleteItem()}><Trash2/></button>
               </div>
             )
           })}
