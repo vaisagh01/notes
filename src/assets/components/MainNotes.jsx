@@ -1,5 +1,5 @@
 import {React, useState,useEffect} from 'react'
-import { SquarePlus, Trash2 } from 'lucide-react';
+import { SquarePlus, Trash2, Check} from 'lucide-react';
 import Popup from './Popup';
 import {motion} from 'framer-motion'
 
@@ -51,50 +51,52 @@ export default function MainNotes() {
     }
   },[])
   return (
-    <div className='flex'>
-      <motion.div layout className='flex flex-col w-1/2' >
-        <motion.div className='todo-wrapper '>
-          <motion.div className="input-field flex flex-col shadow-xl rounded-xl p-3">
-            <motion.input type="text" value={newTitle} 
+    <div className='w-[100%]'>
+      <div layout className='flex px-4 py-3' >
+        <div className='todo-wrapper w-1/2 flex flex-col justify-between'>
+          <div className="input-field rounded-xl w-full">
+            <input type="text" value={newTitle} 
             onChange={(e) => setTitle(e.target.value)} 
             placeholder='Title'
-            className='title rounded-sm py-1 px-2 bg-transparent text-slate-600 font-bold focus:outline-none'
+            defaultValue={"title"}
+            className='shadow-lg title bg-slate-100 p-2 w-full focus:outline-none rounded-t-lg text-slate-700 font-semibold'
             tabIndex='1'
             />
-            <div className='h-[1px] bg-slate-400 my-2'></div>
-            <motion.textarea type="text" value={newDesc} 
+            <div className='h-[1px] bg-slate-100'></div>
+            <div className=''></div>
+            <textarea type="text" value={newDesc} 
             onChange={(e) => setDesc(e.target.value)}
             placeholder='Description'
-            className='title h-80 rounded-sm py-1 px-2 bg-transparent font-normal text-slate-500 focus:outline-none '
+            className='title shadow-lg bg-slate-100 p-2 w-full focus:outline-none rounded-b-lg text-slate-500'
             tabIndex='2'  />     
-          </motion.div>
-
-          <div className="button-field flex p-2">
-            <button 
-            className='btn text-slate-400 font-bold m-4'
-            onClick={handleAddItem}><SquarePlus className='btn'/></button>
           </div>
-        </motion.div>
-    </motion.div>
 
-    <motion.div layout className='w-1/2' >
-      <motion.div className='todo-wrapper'>
-        <div className="h-[1px] mb-9 bg-gray-300 "></div>
-        <motion.div layout className="todo-list ">
+          <div className="button-field flex items-center justify-end ">
+            <p className=''>Add to list</p>
+            <button 
+            className='btn'
+            onClick={handleAddItem}><Check className='btn'/></button>
+          </div>
+        </div>
+    </div>
+
+      <div className='todo-wrapper'>
+        <div className="h-[2px] bg-slate-300"></div>
+        <div layout className="todo-list grid grid-cols-3">
+          {allTodos.length===0 ? "time to add some notes !!" : ""}
           {allTodos.map((item, index) => {
             return (
-              <motion.div className="todo-list-item flex items-center m-2 pl-2 justify-between border-l-[3px] shadow-md rounded p-2 border-red-300 h-20" key={index} >
-                <motion.div className="content">
-                  <h4>{item.title}</h4>
-                  <p>{item.desc}</p>
-                </motion.div>
-                <motion.button whileHover={{scale:"1.1"}} transition={{duration:0.7,ease:[0.5,0,0.24,1]}} className='delete-btn' onClick={() => deleteItem()}><Trash2/></motion.button>
-              </motion.div>
+              <div className=" flex justify-between shadow-lg todo-list-item bg-slate-300 rounded-2xl m-3 p-4" key={index} >
+                <div className="content">
+                  <h3 className='text-slate-800 font-semibold text-sm'>{item.title}</h3>
+                  <p  className='text-slate-600 text-xs'>{item.desc}</p>
+                </div>
+                <button whileHover={{scale:"1.1"}} transition={{duration:0.7,ease:[0.5,0,0.24,1]}} className='delete-btn' onClick={() => deleteItem()}><Trash2/></button>
+              </div>
             )
           })}
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
     </div>
   )
 }
